@@ -1,7 +1,22 @@
-spring: 
+spring:
   # project name
-  application: 
+  application:
     name: serverapp
+  # setup mysql
+  datasource:
+    url: jdbc:mysql://localhost:3307/db_komdigi_fsd_java
+    username: fuzi
+    password: kucing
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  # setup jpa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+        format_sql: true
 
 # setup port
 server:
