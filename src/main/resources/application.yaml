@@ -1,0 +1,8 @@
+spring: 
+  # project name
+  application: 
+    name: serverapp
+
+# setup port
+server:
+  port: 9000
