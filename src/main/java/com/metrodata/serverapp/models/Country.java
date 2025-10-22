@@ -12,16 +12,18 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@Table(name = "tb_country")
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_region")
-public class Region {
+public class Country {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "region_id")
-  private Integer id;
+  private Integer countryId; // db => country_id
 
-  @Column(name = "region_name", nullable = false, unique = true, length = 20)
-  private String nama;
+  @Column(nullable = false, unique = true, length = 2)
+  private String countryCode;
+
+  @Column(nullable = false, unique = true)
+  private String countryName;
 }
