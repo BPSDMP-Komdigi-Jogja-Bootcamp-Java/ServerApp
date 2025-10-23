@@ -1,9 +1,13 @@
 package com.metrodata.serverapp.services;
 
+import com.metrodata.serverapp.dto.request.CountryRequest;
 import com.metrodata.serverapp.models.Country;
+import com.metrodata.serverapp.models.Region;
 import com.metrodata.serverapp.repositories.CountryRepository;
 import java.util.List;
 import lombok.AllArgsConstructor;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class CountryService {
 
   private CountryRepository countryRepository;
+  private RegionService regionService;
 
   public List<Country> getAll() {
     return countryRepository.findAll();
@@ -29,13 +34,39 @@ public class CountryService {
       );
   }
 
+  // tanpa dto
   public Country create(Country country) {
+    return countryRepository.save(country);
+  }
+
+  // menggunakan dto -> secara manual
+  public Country createDTOManual(CountryRequest countryRequest) {
+    // mapping : object country -> country request
+    Country country = new Country();
+    country.setCode(countryRequest.getCode());
+    country.setName(countryRequest.getName());
+
+    Region region = regionService.getById(countryRequest.getRegionId());
+    country.setRegion(region);
+
+    return countryRepository.save(country);
+  }
+
+  // menggunakan dto -> secara otomatis (bean utils)
+  public Country createDTOOtomatis(CountryRequest countryRequest) {
+    // mapping : object country -> country request
+    Country country = new Country();
+    BeanUtils.copyProperties(countryRequest, country);
+
+    Region region = regionService.getById(countryRequest.getRegionId());
+    country.setRegion(region);
+
     return countryRepository.save(country);
   }
 
   public Country update(Integer id, Country country) {
     getById(id); // stop -> tidak ada
-    country.setCountryId(id);
+    country.setId(id);
     return countryRepository.save(country);
   }
 

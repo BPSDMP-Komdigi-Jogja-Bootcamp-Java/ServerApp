@@ -1,5 +1,6 @@
 package com.metrodata.serverapp.controllers;
 
+import com.metrodata.serverapp.dto.request.CountryRequest;
 import com.metrodata.serverapp.models.Country;
 import com.metrodata.serverapp.services.CountryService;
 import java.util.List;
@@ -30,9 +31,22 @@ public class CountryController {
     return countryService.getById(id);
   }
 
+  // tanpa dto
   @PostMapping
   public Country create(@RequestBody Country country) {
     return countryService.create(country);
+  }
+
+  // menggunakan dto -> secara manual
+  @PostMapping("/dto-manual")
+  public Country craeteDTOManual(@RequestBody CountryRequest countryRequest) {
+    return countryService.createDTOManual(countryRequest);
+  }
+
+  // menggunakan dto -> secara otomatis by bean utils
+  @PostMapping("/dto-otomatis")
+  public Country createDTOOtomatis(@RequestBody CountryRequest countryRequest) {
+    return countryService.createDTOOtomatis(countryRequest);
   }
 
   @PutMapping("/{id}")

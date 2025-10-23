@@ -1,4 +1,4 @@
-package com.metrodata.serverapp.models.dto.request;
+package com.metrodata.serverapp.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CountryRequest {
 
-  private String countryCode;
-  private String countryName;
+  private String code;
+  private String name;
   private Integer regionId;
 }

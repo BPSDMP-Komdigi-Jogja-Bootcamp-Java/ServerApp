@@ -21,13 +21,14 @@ public class Country {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer countryId; // db => country_id
+  @Column(name = "counrty_id")
+  private Integer id; // db => country_id
 
-  @Column(nullable = false, unique = true, length = 2)
-  private String countryCode;
+  @Column(name = "counrty_code", nullable = false, unique = true, length = 2)
+  private String code;
 
-  @Column(nullable = false, unique = true)
-  private String countryName;
+  @Column(name = "counrty_name", nullable = false, unique = true)
+  private String name;
 
   @ManyToOne
   // @JsonBackReference
